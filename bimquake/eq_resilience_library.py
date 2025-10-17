@@ -16,12 +16,12 @@ import importlib.resources
 
 def get_Parameters(latitude, longitude):
     city, country_code = _coordinate_check(latitude, longitude)
-    with importlib.resources.open_text("test_earthquake_resilience_1.hazard_data", "countries.json") as countries_file:
+    with importlib.resources.open_text("bimquake.hazard_data", "countries.json") as countries_file:
     # with open('/hazard_data/countries.json') as countries_file:
         countries = json.load(countries_file)
         country_codes = countries.keys()
         if country_code in country_codes:
-            with importlib.resources.path("test_earthquake_resilience_1.hazard_data", "HazardNTCgrid_{}.mat".format(country_code)) as grid_file:
+            with importlib.resources.path("bimquake.hazard_data", "HazardNTCgrid_{}.mat".format(country_code)) as grid_file:
             # hazard_path = os.path.join(countries[country_code])
                 hazard_data = loadmat(grid_file)['lonlatsism']
                 ParaTR = _get_ParaTR(longitude, latitude, hazard_data)
