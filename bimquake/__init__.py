@@ -1,4 +1,4 @@
-__version__ = '0.0.56'
+__version__ = '0.1.0'
 
 from .eq_resilience_library import *
 
