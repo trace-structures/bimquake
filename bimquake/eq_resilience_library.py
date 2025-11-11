@@ -1588,12 +1588,26 @@ def pushover_analysis_calculation(xlsx, ParaTR, soil_category, topographic_categ
     x_coordinates, y_coordinates = _calculate_bilinears(vr_ult_TOT, Hult_TOT)
     Saa, Sda, delta_ult_eq, S_eq, dxstar_t, Tr, IR, ADRS_TR, Sda_TR, Saa_TR, ag_Tr = _get_data_for_plot_2(ADRS, Parametri, Masse, vr_ult_TOT, Hult_TOT, x_coordinates, y_coordinates, kult_TOT, tstep, S_geo, TC, ParaTR, soil_category)
 
-    return vr_ult_TOT, Hult_TOT, x_coordinates, y_coordinates, ADRS, Sda, Saa, delta_ult_eq, S_eq, dxstar_t, Tr, IR, ADRS_TR, Sda_TR, Saa_TR, ag_Tr, L
+    return vr_ult_TOT, Hult_TOT, x_coordinates, y_coordinates, ADRS, tstep, Sda, Saa, delta_ult_eq, S_eq, dxstar_t, Tr, IR, ADRS_TR, Sda_TR, Saa_TR, ag_Tr, L
 
 def _plot_bilinear(vr_ult_TOT, Hult_TOT):
     x_coordinates, y_coordinates = _calculate_bilinears(vr_ult_TOT, Hult_TOT)
     fig = _get_bilinear_pushover_plot(vr_ult_TOT, Hult_TOT, x_coordinates, y_coordinates)
     return fig
+
+def plot_horizontal_elastic_spectrum(ADRS, tstep):
+    fig, ax = plt.subplots(1, 1, figsize=(10, 7))
+
+    ax.plot(tstep, ADRS[:, 1], 'b-', label='$SLV_e$ (TR=712)')
+    ax.set_ylim([0, np.max(ADRS[:, 1])*1.2])
+    ax.set_xlim([0, np.max(tstep)/2])
+    ax.set_ylabel('$α_g$ [g]')
+    ax.set_xlabel('T [s]')
+    ax.title.set_text('Horizontal Elastic Spectrum - ADRS')
+    ax.legend()
+
+    return fig
+
     
 def _plot_ADRS(ADRS, Sda, Saa, delta_ult_eq, S_eq, dxstar_t, Tr, IR, ADRS_TR, Sda_TR, Saa_TR):
     fig, ax = plt.subplots(1, 2, figsize=(10, 7))
