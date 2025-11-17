@@ -1556,10 +1556,10 @@ def _get_bilinear_pushover_plot(vr_ult_TOT, Hult_TOT, bilinear_x, bilinear_y):
     return fig
     
 def run_pushover_analysis(xlsx, ParaTR, soil_category, topographic_category, service_life, importance_class, check_type):
-    vr_ult_TOT, Hult_TOT, x_coordinates, _, ADRS, Sda, Saa, delta_ult_eq, S_eq, dxstar_t, Tr, IR, ADRS_TR, Sda_TR, Saa_TR, ag_Tr, failed_walls = pushover_analysis_calculation(xlsx, ParaTR, soil_category, topographic_category, service_life, importance_class, check_type)
+    vr_ult_TOT, Hult_TOT, x_coordinates, _, ADRS, tstep, Sda, Saa, delta_ult_eq, S_eq, dxstar_t, Tr, IR, ADRS_TR, Sda_TR, Saa_TR, ag_Tr, failed_walls = pushover_analysis_calculation(xlsx, ParaTR, soil_category, topographic_category, service_life, importance_class, check_type)
     dataframe_results = get_pushover_dataframe(x_coordinates, dxstar_t, Tr, ag_Tr, IR)
     figures = global_pushover_plot(vr_ult_TOT, Hult_TOT, ADRS, Sda, Saa, delta_ult_eq, S_eq, dxstar_t, Tr, IR, ADRS_TR, Sda_TR, Saa_TR)
-    return failed_walls, dataframe_results, figures
+    return failed_walls, ADRS, tstep, dataframe_results, figures
 
 def pushover_analysis_calculation(xlsx, ParaTR, soil_category, topographic_category, service_life, importance_class, check_type):
     #-------- Extracting data from sheet ------------#
